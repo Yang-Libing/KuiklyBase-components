@@ -1,0 +1,14 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "knoi": "0.0.10",
+    //"package": "file:./libs/kmm_sample.har"
+    "resource_compose": "../resource_compose"
+  }
+}
+

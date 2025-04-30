@@ -1,0 +1,11 @@
+{
+  "name": "@qqlive/resource_compose",
+  "version": "0.0.5",
+  "description": "This project is used for ohos resource manager.",
+  "main": "Index.ets",
+  "author": "junkepeng",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "knoi": "0.0.29"
+  }
+}

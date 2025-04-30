@@ -1,0 +1,5 @@
+{
+  "libshow.so": {
+    "source": "src/mock/libshow.mock.ets"
+  }
+}

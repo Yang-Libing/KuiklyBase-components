@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "模块描述"
+    },
+    {
+      "name": "KnxcomponentAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "KnxcomponentAbility_label",
+      "value": "skikobridge"
+    }
+  ]
+}

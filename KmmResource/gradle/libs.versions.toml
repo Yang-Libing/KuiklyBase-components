@@ -1,0 +1,87 @@
+[versions]
+agp = "8.2.0"
+kotlin = "1.9.20"
+compose = "1.5.4"
+compose-compiler = "1.5.4"
+compose-material3 = "1.1.2"
+androidx-activityCompose = "1.8.0"
+# android
+constraintLayoutVersion = "2.1.4"
+androidAppCompatVersion = "1.6.1"
+
+# kotlinx
+kotlinxSerializationVersion = "1.5.0"
+kotlinxCoroutinesVersion = "1.6.4"
+kotlinVersion="1.9.20"
+
+compose-ohos = "1.6.1-20.0.2-mutex-ohos-197"
+compose-common = "1.6.1"
+
+overrideComposeVersion = "1.6.1-dev-19.0.20.8"
+
+tkmm = "1.9.23-dev-5"
+kotlinPoetVersion = "1.13.1"
+
+jetbrainsKotlinJvm = "1.9.0"
+commonsCodecVersion = "1.15"
+apacheCommonsTextVersion = "1.10.0"
+androidGradleVersion = "7.4.2"
+androidSdkCommonVersion = "31.0.0"
+composeGradleVersion = "1.0"
+knoi = "0.2.22"
+kotlin-stdlib-platform-ext = "0.0.17"
+gsonVersion = "2.9.0"
+core = "1.13.1"
+
+[libraries]
+
+kotlin-stdlib-platform-ext = { module = "com.tencent.tmm:kotlin-stdlib-platform-ext", version.ref = "kotlin-stdlib-platform-ext" }
+
+knoi = { group = "com.tencent.tmm", name = "knoi", version.ref = "knoi" }
+knoi-processor = { group = "com.tencent.tmm", name = "knoi-processor", version.ref = "knoi" }
+knoi-annotation = { group = "com.tencent.tmm", name = "knoi-annotation", version.ref = "knoi" }
+
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
+
+override-compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "overrideComposeVersion" }
+override-compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "overrideComposeVersion" }
+override-compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "overrideComposeVersion" }
+override-compose-material = { module = "org.jetbrains.compose.material:material", version.ref = "overrideComposeVersion" }
+
+
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
+compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+appCompat = { module = "androidx.appcompat:appcompat", version.ref = "androidAppCompatVersion" }
+kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationVersion" }
+kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesVersion" }
+coroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesVersion" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinVersion" }
+androidSdkCommon = { module = "com.android.tools:sdk-common", version.ref = "androidSdkCommonVersion" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gsonVersion" }
+appCompatResources = { module = "androidx.appcompat:appcompat-resources", version.ref = "androidAppCompatVersion" }
+
+
+
+
+# jvm
+kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "kotlinPoetVersion" }
+commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsCodecVersion" }
+apacheCommonsText = { module = "org.apache.commons:commons-text", version.ref = "apacheCommonsTextVersion" }
+androidGradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "androidGradleVersion" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "core" }
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinParcelize = { id = "kotlin-parcelize", version.ref = "kotlinVersion" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+composeOhos = { id = "org.jetbrains.compose", version.ref = "compose-ohos" }
+composeCommon = { id = "org.jetbrains.compose", version.ref = "compose-common" }
+jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+composeGradle = { id = "com.tencent.tmm.kmmgradle", version.ref = "composeGradleVersion" }

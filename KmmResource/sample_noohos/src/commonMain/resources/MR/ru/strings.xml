@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="hello_world">Привет Мир resources</string>
+    <string name="hello_ohos">Привет Гармония</string>
+</resources>

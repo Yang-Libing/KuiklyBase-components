@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "KnxcomponentAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "KnxcomponentAbility_label",
+      "value": "label"
+    }
+  ]
+}

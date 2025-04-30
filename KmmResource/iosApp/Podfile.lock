@@ -1,0 +1,16 @@
+PODS:
+  - shared_template (1.0)
+
+DEPENDENCIES:
+  - shared_template (from `../shared-template`)
+
+EXTERNAL SOURCES:
+  shared_template:
+    :path: "../shared-template"
+
+SPEC CHECKSUMS:
+  shared_template: f968bfcb971e5780ff86f48a5d6722453b2fc5d6
+
+PODFILE CHECKSUM: 7904bc0a2dabc85c65d6d397e331981806e34d48
+
+COCOAPODS: 1.14.3

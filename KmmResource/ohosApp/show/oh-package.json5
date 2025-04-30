@@ -1,0 +1,20 @@
+{
+  "name": "show",
+  "version": "1.0.0",
+  "description": "Please describe the basic information.",
+  "main": "",
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "libshow.so": "file:./src/main/cpp/types/libshow",
+    "knxcomponent": "file:./libs/knxcomponent.har",
+    "package": "file:./libs/kmm_oHShow.har",
+    //"@ohos/knoi": "file:./libs/knoi.har",
+    "knoi": "0.0.x",
+    "resource_compose": "0.0.x"
+  },
+  /*"hooks": {
+    "postInstall": "SDK_INSTALL_PATH=$(PWD)/oh_modules/${sdk_name} && [[ -d ${SDK_INSTALL_PATH} ]] && sh ${SDK_INSTALL_PATH}/install_native_sdk.sh ${sdk_name}"
+  },*/
+
+}
