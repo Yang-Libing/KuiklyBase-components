@@ -1,0 +1,39 @@
+[versions]
+agp = "8.1.0"
+kotlin = "2.0.21-mini-010"
+harmony-build = "0.0.23"
+easy-publish = "1.5.0.12"
+com-google-devtools-ksp = "2.0.21-1.0.28"
+kotlin-stdlib-platform-ext = "0.0.17"
+requestdegradation = "0.0.1"
+
+com-tencent-tmm-knoi-plugin = "0.3.0"
+knoi = "0.3.0"
+
+kotlinx-serialization-json = "1.6.7"
+stately-concurrency = "0.0.16.4"
+transport-service = "0.0.5.42"
+okio = "3.9.6"
+
+
+[libraries]
+kotlin-stdlib-platform-ext = { module = "com.tencent.tmm:kotlin-stdlib-platform-ext", version.ref = "kotlin-stdlib-platform-ext" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
+stately-concurrency = { module = "com.tencent.tmm:stately-concurrency", version.ref = "stately-concurrency"}
+transport-service = { module = "com.tencent.qqlive.modules:transportservice", version.ref = "transport-service"}
+okio = { group = "com.squareup.okio", name = "okio", version.ref = "okio" }
+tmm-requestdegradation = { module = "com.tencent.tmm:requestdegradation", version.ref = "requestdegradation" }
+knoi = { group = "com.tencent.tmm", name = "knoi", version.ref = "knoi" }
+
+[plugins]
+com-android-application = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+harmonyBuild = { id = "harmony-build", version.ref = "harmony-build" }
+easyPublish = { id = "easy-publish", version.ref = "easy-publish" }
+googleDevtoolsKsp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
+tencentTmmKnoiPlugin = { id = "com.tencent.tmm.knoi.plugin", version.ref = "com-tencent-tmm-knoi-plugin" }
+
+[bundles]

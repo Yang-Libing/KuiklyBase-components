@@ -1,0 +1,123 @@
+PODS:
+  - MMKVCore (1.3.2)
+  - MSDKDns (1.5.0.6)
+  - RAAnnotation (0.1.1)
+  - RAFT (2.3.4):
+    - RAAnnotation
+    - RAFTMeasure
+  - RaftInterface (0.0.21)
+  - RAFTMeasure (0.2.7)
+  - shared_template (1.0):
+    - MMKVCore (= 1.3.2)
+    - TQUICiOS (= 1.5.3)
+    - VBAFNHttpDataRequest (= 2.15.1)
+    - VBKVServiceiOS (= 2.6.3)
+    - VBLogServiceiOS (= 0.0.48)
+    - VBMMKV (= 1.3.2)
+    - VBTQUIC (= 2.2.9)
+    - VBTransportServiceiOS (= 6.1.0)
+  - TDOS_Diagnose/Core (0.8.6):
+    - RaftInterface (~> 0.0.13)
+    - RAFTMeasure
+    - YYModel
+  - TQUICiOS (1.5.3):
+    - VBTQUIC
+  - VBAFNHttpDataRequest (2.15.1)
+  - VBCAres (1.8.1)
+  - VBDomainNameIPExchangeriOS (4.0.1):
+    - MSDKDns
+    - RAAnnotation
+    - RAFT
+    - VBCAres
+    - VBLogServiceiOS (>= 0.0.19)
+    - VBNetStateServiceiOS (>= 2.0.0)
+  - VBKVServiceiOS (2.6.3):
+    - RAFT
+    - VBMMKV
+  - VBLogServiceiOS (0.0.48):
+    - RAFT
+    - RaftInterface
+    - TDOS_Diagnose/Core (~> 0.8.0)
+    - ZipArchive
+  - VBMMKV (1.3.2):
+    - MMKVCore
+  - VBNetStateServiceiOS (3.3.6):
+    - RAAnnotation
+    - RAFT
+    - VBCAres
+    - VBLogServiceiOS (>= 0.0.19)
+  - VBTQUIC (2.2.9)
+  - VBTransportServiceiOS (6.1.0):
+    - RAFT
+    - TQUICiOS
+    - VBAFNHttpDataRequest
+    - VBDomainNameIPExchangeriOS
+    - VBKVServiceiOS
+    - VBLogServiceiOS
+    - VBNetStateServiceiOS
+  - YYModel (1.0.5)
+  - ZipArchive (1.4.0)
+
+DEPENDENCIES:
+  - MMKVCore (= 1.3.2)
+  - shared_template (from `../shared-template`)
+  - TQUICiOS (= 1.5.3)
+  - VBAFNHttpDataRequest (= 2.15.1)
+  - VBKVServiceiOS (= 2.6.3)
+  - VBLogServiceiOS (= 0.0.48)
+  - VBMMKV (= 1.3.2)
+  - VBTQUIC (= 2.2.9)
+  - VBTransportServiceiOS (= 6.1.0)
+
+SPEC REPOS:
+  https://git.woa.com/TencentVideoShared/VideoBase.git:
+    - MMKVCore
+    - MSDKDns
+    - TQUICiOS
+    - VBAFNHttpDataRequest
+    - VBCAres
+    - VBDomainNameIPExchangeriOS
+    - VBKVServiceiOS
+    - VBLogServiceiOS
+    - VBMMKV
+    - VBNetStateServiceiOS
+    - VBTQUIC
+    - VBTransportServiceiOS
+  https://mirrors.tencent.com/repository/generic/pod-go/T-CocoaPods/Specs/:
+    - RAAnnotation
+    - RAFT
+    - RaftInterface
+    - RAFTMeasure
+    - TDOS_Diagnose
+    - YYModel
+    - ZipArchive
+
+EXTERNAL SOURCES:
+  shared_template:
+    :path: "../shared-template"
+
+SPEC CHECKSUMS:
+  MMKVCore: 1c625024025de4a1c1126fa14382d67f93cc1523
+  MSDKDns: e9079350141def1a97d19908ebeff013bbf843c0
+  RAAnnotation: 0334ba76340e73825bfb447aa76b91a4d89f192f
+  RAFT: fefeb3c6d8199e50f1202784a769be0cb5330e6f
+  RaftInterface: 77eb94d17b15fd38cc913e69be06b61339aba51a
+  RAFTMeasure: d500aa80ba2916448075ecee04be8dff5bf90c96
+  shared_template: 73029f9fe63971e01cd9eb9fea52a2cab57efa2e
+  TDOS_Diagnose: 2b615b7b03e75901488072b14edc70e19fd340fa
+  TQUICiOS: 5cc073ad1c0c9134de19b714641ed340eef18e0d
+  VBAFNHttpDataRequest: ebf4d2184b027834c55b9dcb8cf7b7c05225d1e7
+  VBCAres: 6975cb009ee2e669d107b7212a73662bcededd09
+  VBDomainNameIPExchangeriOS: cddd20591cc8c1831f5b3471fe881cd705aa147f
+  VBKVServiceiOS: a085e42e54fed72c1d4cde444573ccb9aa0ba9f8
+  VBLogServiceiOS: 194e3c441807249df83da1a2df35590fe0ade4b8
+  VBMMKV: 95f395b22fe00a1581b5bbfe6915f8234414847f
+  VBNetStateServiceiOS: ab78998d016c54e663dda8f0858262cf3949a0e2
+  VBTQUIC: 980471979d7a913eb5a70a42d2afc78188974f73
+  VBTransportServiceiOS: c196e92d2a5d8001e9b105947ddc877861020bf8
+  YYModel: c6cb5c6d45a6b97f5598d5e3b86105a7bdfdfd40
+  ZipArchive: fa50104fb9d0fac435e40bbec912b3369ceab15a
+
+PODFILE CHECKSUM: a157dbc526eb16b60f108a2cb4886c097993148f
+
+COCOAPODS: 1.14.3
