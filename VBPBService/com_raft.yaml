@@ -1,0 +1,30 @@
+name: pbservice                # 组件英文名，必填，纯英文不允许带空格
+displayName: "网络组件"     # 组件展示名，选填，填写后替代英文名进行展示
+version: 1.0.29                   # 组件版本，必填
+# 配置版本 v2为RAFT2.0
+apiVersion: npm/v1
+platform: kuikly
+summary: "Kotlin跨平台网络组件"     # 组件介绍摘要，必填，用于市场首页展示
+description: "
+1.支持跨平台TRPC协议请求及TRACE链路分析
+2.支持普通Get/Post请求
+3.支持各阶段链路耗时统计
+4.包含容灾稳定性优化策略
+5.包含DNS解析、IP竞速、QUIC等优化策略
+6.配套数据看板和监控体系
+" # 组件详细介绍，必填，用于组件详情页展示
+team: "腾讯视频"                 # 团队名称，必填，用于市场团队展示，并参与排名，打造团队影响力
+kotlin: 1.9.23-dev-208           # 组件的kotlin版本环境
+kuiklyType: "KMP"              # 官方KMP组件或者是Kuikly组件,kuikly组件包含自定义module和自定义view两种类别
+kuiklyTarget:                      # 以下字段标识组件可运行的平台
+  - android                          # 组件是否支持Android端运行
+  - iOS                         # 组件是否支持iOS端运行
+#  - macos
+#  - linux
+#  - jsc                         # 支持在javaScriptCore上运行，要求无额外依赖，比如未调用nodejs、浏览器或者鸿蒙api
+#  - jsNode                      # 支持在nodeJs上运行
+#  - jsBrowser                   # 支持在浏览器环境运行
+#  - jsOhos                      # 支持js产物在鸿蒙上运行
+  - ohosNative                  # 支持native产物在鸿蒙上运行
+owner:                            # 负责人
+  - haibarawang
