@@ -28,8 +28,18 @@ kotlin {
                 implementation("com.google.devtools.ksp:symbol-processing-api:$kspVersion")
             }
             kotlin.srcDir("src/main/kotlin")
-            resources.srcDir("src/main/resources")
+            resources.srcDirs("src/main/resources", buildDir.absolutePath + "/version/")
         }
 
+    }
+
+}
+
+tasks.withType<Jar>().configureEach {
+    manifest {
+        attributes(
+            "Implementation-Title" to "knoi-processor",
+            "Implementation-Version" to project.version,
+        )
     }
 }
