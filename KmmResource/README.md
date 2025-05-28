@@ -1,74 +1,43 @@
-    QA 直接跳转到末尾查看
+# 开始
 
-# 先回答两个问题
+本项目基于Kotlin Multiplatform技术，构建了一套跨平台原生资源管理解决方案，支持Android、iOS及HarmonyOS三大移动端平台。通过构建时同步生成类型安全的资源访问类（Resource Class），结合Kotlin/Native（klib）/ Kotlin/Jvm（aar）的标准化资源封装机制，实现了多平台资源统一管理与编译期强校验，为开发者提供与Android R类相仿的资源调用体验。
 
-1.KMM 资源管理器到底管理的是什么，或者说给使用方暴露的是什么？
+资源管理器到底管理的是什么，或者说给使用方暴露的是什么？
 
 答：**KMM 资源管理器根本上暴露的是指定资源在不同平台的 ID信息（例如 Android 是 R中的 id，iOS 是
 bundle+name，鸿蒙是 name），需要使用者在不同平台实现对应的获取方式来获取资源。**
 
-2.Android 和 iOS kotlin multi 可以调用，鸿蒙怎么用呢？
+## 版本
 
-答：**鸿蒙我们提供了基于 Native 调用 ArkTs 的几个方法(OhosKmmResourceManager KMM)，可以帮助大家用鸿蒙的
-ID 来获取鸿蒙的资源,Android 和 iOS 需要结合自己的使用场景进行业务侧封装后即可使用**
-
-3.compose 中怎么使用呢？
-
-**Compose 中资源管理器帮大家实现了一些通用的在 Composable 方法中可以获取资源的
-方式，如果你需要在特定平台使用，还需要根据不同平台的方式来获取资源信息**
-
-# 开始
+|  | 稳定 | 测试 |
+| ------ | ------ | ------ |
+| com.tencent.kuiklybase.resource.generator | 0.0.1 | 0.0.1 |
+| resource-core | 0.0.1 | 0.0.1 |
+| resource-compose | 0.0.1 | 0.0.1 |
 
 ## gradle集成
 
 ### KMM工程
 
-> root gradle.properties
-
-```
-# K2 compiler
-kotlin.experimental.tryK2=true
-kapt.use.k2=true
-kotlin.incremental.useClasspathSnapshot=false
-kotlin.compiler.suppressExperimentalICOptimizationsWarning=true
-
-```
-不开启编译会出现 `is compiled by a pre-release version of Kotlin and cannot be loaded by this version of the compiler` 的报错
-注意 ios 不能开启 k2编译
-
->> root build.gradle
+> >root build.gradle
 
 ```kotlin
 plugins {
-    id("tmm-resource-generator").version("x.x.x-SNAPSHOT").apply(false) //用于生成 MR 文件
+    id("com.tencent.kuiklybase.resource.generator").version("x.x.x-verison").apply(false)
 }
 ```
-
-此工程主要用于根据资源配置目录生成对应的引用临时文件
-
-
-> root gradle.properties
-
-```kotlin
-resource.targetCopyDir = / Users / resource /
-```
-
-（仅apple 平台生效）配置resource.targetCopyDir之后，执行 framework 相关的编译将把最终资源往设置的目标目录拷贝一份
-
 
 > project build.gradle
 
 ```kotlin
 plugins {
-    id("tmm-resource-generator")
+    id("com.tencent.kuiklybase.resource.generator")
 }
 
 commonMain.dependencies {
     //put your multiplatform dependencies here
-    implementation("com.tencent.tmm:resource-compose:x.x.x-SNAPSHOT")
-    //或者你用到了公共资源
-    implementation(project(":foundation:resource"))
-
+    implementation("com.tencent.kuiklybase:resource-core:x.x.x-vesion")
+    implementation("com.tencent.kuiklybase:resource-compose:x.x.x-vesion")
 }
 
 
@@ -84,80 +53,81 @@ multiplatformResources {
 
 | 配置                               | 说明                           |
 |----------------------------------|------------------------------|
- multiplatformResourcesPackage    | 生成 R 文件的包名                   
- multiplatformResourcesPrefix     | 资源prefix 不能与其他业务重复           
- multiplatformResourcesClassName  | 生成 R 文件的类名称，默认 MR 可以不填       
- iosBaseLocalizationRegion        | 暂时没有，预留可以不填                  
- multiplatformResourcesSourceSet  | 获取 kmm 资源的平台名称，默认 commonMain 
- multiplatformResourcesVisibility | MR 可见性，可以不填，需要 Sync 完之后再次添加  
+| multiplatformResourcesPackage    | 生成 R 文件的包名                   |
+| multiplatformResourcesPrefix     | 资源prefix 不能与其他业务重复    |       
+|multiplatformResourcesClassName  | 生成 R 文件的类名称，默认 MR 可以不填       |
+| iosBaseLocalizationRegion        | 暂时没有，预留可以不填                  |
+|multiplatformResourcesSourceSet  | 获取 kmm 资源的平台名称，默认 commonMain |
+| multiplatformResourcesVisibility | MR 可见性，可以不填，需要 Sync 完之后再次添加  |
 
 此处对应的配置信息用于配置目录和生成文件的信息
 
 ### Ohos工程(其他Platform 跳过)
 
-#### 鸿蒙开发Studio 根目录执行
-
-    ohpm config set registry http://ohpm-beta.mirrors.woa.com/repos/ohpm
-
 #### project oh-package.json5添加
 
-     "dependencies": {
-        "knoi": "0.0.x"
-        "resource_compose": "0.0.x"
-     }
+```
+"dependencies": {
+    "@kuiklybase/knoi": "0.0.x"
+    "@kuiklybase/resource_compose": "0.0.x"
+ }
+```
 
 #### project 最终build.gradle中添加
 
-    linkerOpts("-L${projectDir}/libs/", "-lresource_compose")
+```
+linkerOpts("-L${projectDir}/libs/", "-lresource_compose")
+```
 
-全目录参考
+全路径参考
 
-    kotlin {
-        ohosArm64 {
-            binaries.sharedLib {
-                 linkerOpts("-L${projectDir}/libs/", "-lresource_compose")
-            }
+```
+kotlin {
+    ohosArm64 {
+        binaries.sharedLib {
+             linkerOpts("-L${projectDir}/libs/", "-lresource_compose")
         }
     }
+}
+```
 
 #### 拷贝鸿蒙so到kmm中进行链接
 
 在鸿蒙的 oh_modules/@qqlive/resource_compose/libs/arm64-v8a 中有一个 libresource_compose.so 的文件，拷贝到上一步配置的libs目录里 编译的时候进行链接
 
+#### 启动任务手动初始化
 
-#### 启动页面手动初始化
+```
+import { initResourceCompose } from 'resource_compose';
 
-    import { initResourceCompose } from 'resource_compose';
-
-    initResourceCompose(this.context)
+initResourceCompose(this.context)
+```
 
 ### 任务介绍和集成运行
 
 KMM 工程
 
-    |---kotlin harmony
-    |---|---assembleHar //一键生成 har 包，包括资源和 libkn.so 库，鸿蒙项目直接引用即可
-    |---|---publisHar //一键生成 har 包，包括资源和 libkn.so 库， 发布到远端
-
-    |---tmm-resource
-    |---|---generateMRcommonMain //生成 common MR 文件，sync 自动运行
-    |---|---generateMRohosArm64Main //生成  ohos MR 文件， 需要手动运行
-
-变成完成之后需要测试，点击assembleHar，会在 build/output/har 文件夹下生成 har 包，之后将 har 包拷贝到
-`Ohos 工程`的 libs 下，在`project oh-package.json5`tianj `"kmm_xxxx": "file:./libs/kmm_xxxx.har"`
-，然后直接运行鸿蒙项目即可。
+```
+|---tmm-resource
+|---|---generateMRcommonMain //生成 common MR 文件，sync 自动运行
+|---|---generateMRohosArm64Main //生成  ohos MR 文件， 需要手动运行（或者生成最终产物时自动运行）
+```
 
 ### iOS工程(其他Platform 跳过)
 
 #### 配置最终bundle的拷贝位置(project gradle.properties)
 
-    resource.targetCopyDir=../Assets/
+```
+resource.targetCopyDir=../Assets/
+```
 
 ../Assets/ 为需要拷贝的bundle包位置,最终kmm的所有bundle会拷贝到 ../Assets/tmm-resources-apple 目录
 
 #### 最终打出的XXXX.framework 的 podspec
 
-    spec.resource_bundles = { spec.name => ['Assets/tmm-resources-apple/*.{xcassets,bundle}'] }
+```
+spec.resource_bundles = { spec.name => ['Assets/tmm-resources-apple/*.{xcassets,bundle}'] }
+```
 
 增加当前framework的resource_bundles的指定目录，执行pod install的时候会自动拷贝到iOS工程
 
@@ -165,9 +135,11 @@ KMM 工程
 
 在调用iOS资源之前（最好是启动任务中初始化kmm pod 的 name）(默认是腾讯视频的QLMM 需要你重新初始化，不然比找不到包)
 
-    com.tencent.tmm.kmmresource.resource.utils.podName = "XXXXX" 
+```
+com.tencent.tmm.kmmresource.resource.utils.podName = "XXXXX" //"XXXXX" 是你最终的pod的名称
 
-"XXXXX" 是你最终的pod的名称
+com.tencent.tmm.kmmresource.resource.utils.isDebug = true //将启动全量bundle扫描
+```
 
 ### 任务介绍和集成运行
 
@@ -177,27 +149,31 @@ KMM 工程
 
 ### 文件组织方式
 
-    commonMain //KMM 共享层名称 可在gradle中配置
-    |---resources
-    |---|---MR // Multi Resource 共享资源目录名
-    |---|---|---base //字符串资源存放目录 string plurals资源存放目录
-    |---|---|---|---strings.xml
-    |---|---|---|---plurals.xml
-    |---|---|---colors //颜色资源存放目录
-    |---|---|---|---colors.xml
-    |---|---|---images //图片资源存放目录 建议直接存放webp 减小图片体积
-    |---|---|---|---home_back@1x.webp //具体文件命名方式 见image图片使用规则
-    |---|---|---|---home_back@2x.webp
-    |---|---|---fonts //字体资源存放目录
-    |---|---|---|---qqlive_font.otf
-    |---|---|---files //raw资源存放目录
-    |---|---|---|---file_name.txt
-    |---|---|---assets //assets资源存放目录
-    |---|---|---|---file_name.txt
+```
+commonMain //KMM 共享层名称 可在gradle中配置
+|---resources
+|---|---MR // Multi Resource 共享资源目录名
+|---|---|---base //字符串资源存放目录 string plurals资源存放目录
+|---|---|---|---strings.xml
+|---|---|---|---plurals.xml
+|---|---|---colors //颜色资源存放目录
+|---|---|---|---colors.xml
+|---|---|---images //图片资源存放目录 建议直接存放webp 减小图片体积
+|---|---|---|---home_back@1x.webp //具体文件命名方式 见image图片使用规则
+|---|---|---|---home_back@2x.webp
+|---|---|---fonts //字体资源存放目录
+|---|---|---|---qqlive_font.otf
+|---|---|---files //raw资源存放目录
+|---|---|---|---file_name.txt
+|---|---|---assets //assets资源存放目录
+|---|---|---|---file_name.txt
+```
 
 ### 公共的资源
 
-        implementation(project(":foundation:resource"))
+```
+implementation(project(":foundation:resource"))
+```
 
 还记得这个工程吗，如果你需要共享你的图片或者使用共享图片，你可以在这个工程下添加各种资源。然后使用这个项目的资源包名下的
 MR 进行使用即可
@@ -220,7 +196,9 @@ MR 进行使用即可
 此处`MR.strings.hello_world`，只是记录三端存放信息的类，具体的值需要在三端自行获取。当然，我们直接提供了可以在
 compose 中使用的方法，见下文
 
-    MR.strings.hello_world
+```
+MR.strings.hello_world
+```
 
 ### Format字符串
 
@@ -234,7 +212,9 @@ compose 中使用的方法，见下文
 </resources>
 ```
 
-    MR.strings.my_string_formatted
+```
+MR.strings.my_string_formatted
+```
 
 ### plural string
 
@@ -254,7 +234,9 @@ compose 中使用的方法，见下文
 </resources>
 ```
 
-    MR.plurals.my_plural
+```
+MR.plurals.my_plural
+```
 
 ### 图片
 
@@ -262,7 +244,9 @@ compose 中使用的方法，见下文
 
 目前支持
 
-    png / jpg / webp / svg / gif
+```
+png / jpg / webp / svg / gif
+```
 
 图片(除svg)名的后缀必须为以下的其中一个
 
@@ -273,7 +257,7 @@ compose 中使用的方法，见下文
 | @1.5x  | hdpi    |        |
 | @2x    | xhdpi   | ios 2x | xldpi   
 | @3x    | xxhdpi  | ios 3x | xxldpi  
-| @4x    | xxxhdpi |        | xxxldpi 
+| @4x    | xxxhdpi |        | xxxldpi
 
 例如
 
@@ -289,7 +273,9 @@ compose 中使用的方法，见下文
 图片会生成对应的 `MR.images.xxxx`
 对于的资源，在使用图片库时只需传入腾讯视频封装好的Image 中即可，如果需要自行处理，则需要进行三端的各自的获取方式获取后统一处理
 
-    MR.images.xxxx
+```
+MR.images.xxxx
+```
 
 ### 字体
 
@@ -302,7 +288,9 @@ compose 中使用的方法，见下文
 
 支持 ttf 和 otf 格式的资源
 
-    MR.fonts.Raleway.italic
+```
+MR.fonts.Raleway.italic
+```
 
 ### Colors
 
@@ -320,7 +308,9 @@ compose 中使用的方法，见下文
 
 使用
 
-    MR.colors.valueColor
+```
+MR.colors.valueColor
+```
 
 注意： 换肤或者暗黑模式请联系对应同学咨询
 
@@ -330,7 +320,9 @@ compose 中使用的方法，见下文
 
 使用
 
-    MR.assets.test
+```
+MR.assets.test
+```
 
 ### file
 
@@ -338,7 +330,9 @@ compose 中使用的方法，见下文
 id 获取文件 `MR.files.test`
 使用
 
-    MR.files.test
+```
+MR.files.test
+```
 
 > assets 资源的使用，需要结合使用场景和三端的不同实现，自行实现处理后 compose 或者 common
 > 端可以使用的数据结构，然后在 common 层使用
@@ -349,37 +343,49 @@ id 获取文件 `MR.files.test`
 
 在commonMain的Compose下获取
 
-    val string: String = stringResource(MR.strings.hello_world)
+```
+val string: String = stringResource(MR.strings.hello_world)
+```
 
 在commonMain的Compose下获取需要格式化的字符串
 
-    val string: String = stringResource(MR.strings.my_string_formatted,"format_value")
+```
+val string: String = stringResource(MR.strings.my_string_formatted,"format_value")
+```
 
 在commonMain的Compose下获取plural
 
-    val string: String = stringResource(MR.plurals.my_plural, quantity)
+```
+val string: String = stringResource(MR.plurals.my_plural, quantity)
+```
 
 ## 图片
 
 图片需要结合Compose 图片库的腾讯视频 Image 使用，只需在 commonMain的Compose中传入对于的资源引用即可
 
-    Image(MR.images.home_black_18)
+```
+Image(MR.images.home_black_18)
+```
 
 ## 字体
 
 使用
 
-    val fontFamily: FontFamily = fontFamilyResource(MR.fonts.Raleway.italic)
+```
+val fontFamily: FontFamily = fontFamilyResource(MR.fonts.Raleway.italic)
 
-    Text(
-            fontFamily = fontFamilyResource(MR.fonts.cormorant.italic),
-    )
+Text(
+        fontFamily = fontFamilyResource(MR.fonts.cormorant.italic),
+)
+```
 
 ## Color
 
 在 compose 中使用
 
-    val color: Color = colorResource(MR.colors.valueColor)
+```
+val color: Color = colorResource(MR.colors.valueColor)
+```
 
 ## MR文件生成
 
@@ -435,15 +441,15 @@ public actual object MR {
 
 ### XXXResource
 
-| common层         | 	Android	 | 鸿蒙       | iOS                                    |
+| common层         |     Android     | 鸿蒙       | iOS                                    |
 |-----------------|-----------|:---------|:---------------------------------------|
-| StringResource	 | id        | resName  | bundle+resourceId                      |
-| ColorResource   | 	id       | 	resName | bundle+name                            |
-| PluralsResource | 	id       | 	resName | bundle+resourceId                      |
-| ImageResource	  | id	       | resName  | bundle+assetImageName                  |
-| FontResource    | 	id       | 	path    | bundle+fontName                        |
-| AssetResource   | 	path     | 	path    | bundle+fileName+extension+originalPath |
-| FileResource    | 	id       | 	path    | bundle+fileName+extension              |
+| StringResource     | id        | resName  | bundle+resourceId                      |
+| ColorResource   |     id       |     resName | bundle+name                            |
+| PluralsResource |     id       |     resName | bundle+resourceId                      |
+| ImageResource   | id        | resName  | bundle+assetImageName                  |
+| FontResource    |     id       |     path    | bundle+fontName                        |
+| AssetResource   |     path     |     path    | bundle+fileName+extension+originalPath |
+| FileResource    |     id       |     path    | bundle+fileName+extension              |
 
 这些Resource会在各个平台中，不同实现，记录各个平台对于访问资源的唯一id
 方法
@@ -561,24 +567,26 @@ Kotlin 并未提供直接调用鸿蒙的方法，所以我们提供了注入的�
 Android，目前只支持指定基础类型的获取方式，并不能和 Android 和 iOS 一样直接转。所以需要在使用鸿蒙资源的时候通过
 ByteArray 获取到信息之后再转换成自己需要的数据才可以使用。
 
-    不建议直接使用
+```
+不建议直接使用
+```
 
 ```kotlin
 @ServiceConsumer
 interface OhosResourceService {
-    fun getString(resName: String): String?
+  fun getString(resName: String): String?
 
-    fun getString(resName: String, vararg args: Any): String?
+  fun getString(resName: String, vararg args: Any): String?
 
-    fun getPlural(resName: String, args: Number): String?
+  fun getPlural(resName: String, args: Number): String?
 
-    fun getImage(resName: String): ArrayBuffer?
+  fun getImage(resName: String): ArrayBuffer?
 
-    fun getColor(resName: String): Int?
+  fun getColor(resName: String): Int?
 
-    fun getImageBase64(resName: String): String?
+  fun getImageBase64(resName: String): String?
 
-    fun getFile(resName: String): ArrayBuffer?
+  fun getFile(resName: String): ArrayBuffer?
 
 }
 ```
@@ -589,42 +597,42 @@ interface OhosResourceService {
 object OhosKmmResourceManager {
 
 
-    fun getString(resName: String): String? {
-        val resResult = getOhosResourceServiceApi().getString(resName)
-        return resResult
-    }
+  fun getString(resName: String): String? {
+    val resResult = getOhosResourceServiceApi().getString(resName)
+    return resResult
+  }
 
-    fun getString(resName: String, vararg args: Any): String? {
-        val resResult = getOhosResourceServiceApi().getString(resName, args)
-        return resResult
-    }
-
-
-    fun getPlural(resName: String, args: Number): String? {
-        val resResult = getOhosResourceServiceApi().getPlural(resName, args)
-        return resResult
-    }
-
-    fun getImage(resName: String): ArrayBuffer? {
-        val resResult = getOhosResourceServiceApi().getImage(resName)
-        return resResult
-    }
-
-    fun getColor(resName: String): Int? {
-        val resResult = getOhosResourceServiceApi().getColor(resName)
-        return resResult
-    }
-
-    fun getImageBase64(resName: String): String? {
-        val resResult = getOhosResourceServiceApi().getImageBase64(resName)
-        return resResult
-    }
+  fun getString(resName: String, vararg args: Any): String? {
+    val resResult = getOhosResourceServiceApi().getString(resName, args)
+    return resResult
+  }
 
 
-    fun getFile(resName: String): ArrayBuffer? {
-        val resResult = getOhosResourceServiceApi().getFile(resName)
-        return resResult
-    }
+  fun getPlural(resName: String, args: Number): String? {
+    val resResult = getOhosResourceServiceApi().getPlural(resName, args)
+    return resResult
+  }
+
+  fun getImage(resName: String): ArrayBuffer? {
+    val resResult = getOhosResourceServiceApi().getImage(resName)
+    return resResult
+  }
+
+  fun getColor(resName: String): Int? {
+    val resResult = getOhosResourceServiceApi().getColor(resName)
+    return resResult
+  }
+
+  fun getImageBase64(resName: String): String? {
+    val resResult = getOhosResourceServiceApi().getImageBase64(resName)
+    return resResult
+  }
+
+
+  fun getFile(resName: String): ArrayBuffer? {
+    val resResult = getOhosResourceServiceApi().getFile(resName)
+    return resResult
+  }
 
 
 }

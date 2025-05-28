@@ -1,19 +1,22 @@
 plugins {
     //trick: for the same plugin versions in all sub-modules
     alias(libs.plugins.androidLibrary).apply(false)
-    kotlin("multiplatform").version("2.0.21-mini-005").apply(false)
+    kotlin("multiplatform").version("2.0.21-KBA-003").apply(false)
     alias(libs.plugins.composeOhos).apply(false)
+    alias(libs.plugins.composeCompiler).apply(false)
     id("com.google.devtools.ksp") version "2.0.21-1.0.28" apply false
-    id("com.tencent.tmm.knoi.plugin") version ("0.3.0") apply false
-    id("easy-publish").version("1.5.0.15").apply(false)
-    id("harmony-build").version("0.0.12").apply(false)
-    id("tmm-resource-generator").version("0.1.9").apply(false)
+    id("com.tencent.kuiklybase.knoi.plugin") version ("0.0.4") apply false
+    id("com.tencent.kuiklybase.resource.generator").version("0.0.1").apply(false)
     alias(libs.plugins.jetbrainsKotlinJvm) apply false
 
 }
 
 allprojects {
     repositories {
+        maven("https://oss.sonatype.org/content/repositories/snapshots")
+        maven("https://oss.sonatype.org/content/groups/public/")
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public/")
+
         mavenLocal()
         google()
         mavenCentral()

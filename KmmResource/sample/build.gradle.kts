@@ -2,10 +2,9 @@
 plugins {
     kotlin("multiplatform")
    // alias(libs.plugins.composeGradle)
-    id("tmm-resource-generator")
-    id("harmony-build")
+    id("com.tencent.kuiklybase.resource.generator")
     id("com.android.library")
-    id("com.tencent.tmm.knoi.plugin")
+    id("com.tencent.kuiklybase.knoi.plugin")
 }
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -48,7 +47,6 @@ kotlin {
         commonMain.dependencies {
             //put your multiplatform dependencies here
             implementation(project(":resource-compose"))
-            api(libs.kotlin.stdlib.platform.ext)
         }
 
         val commonTest by getting {

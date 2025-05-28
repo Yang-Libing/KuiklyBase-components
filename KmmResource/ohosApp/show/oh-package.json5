@@ -10,8 +10,8 @@
     "knxcomponent": "file:./libs/knxcomponent.har",
     "package": "file:./libs/kmm_oHShow.har",
     //"@ohos/knoi": "file:./libs/knoi.har",
-    "knoi": "0.0.x",
-    "resource_compose": "0.0.x"
+    "@kuiklybase/knoi": "0.0.1",
+    "@kuiklybase/resource_core": "../resource_core"
   },
   /*"hooks": {
     "postInstall": "SDK_INSTALL_PATH=$(PWD)/oh_modules/${sdk_name} && [[ -d ${SDK_INSTALL_PATH} ]] && sh ${SDK_INSTALL_PATH}/install_native_sdk.sh ${sdk_name}"

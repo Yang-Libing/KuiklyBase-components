@@ -1,0 +1,11 @@
+{
+  "name": "@kuiklybase/resource_core",
+  "version": "0.0.1",
+  "description": "This project is used for ohos resource manager.",
+  "main": "Index.ets",
+  "author": "junkepeng",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@kuiklybase/knoi": "0.0.1"
+  }
+}

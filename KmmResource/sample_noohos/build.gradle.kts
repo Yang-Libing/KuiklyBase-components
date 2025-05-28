@@ -1,12 +1,11 @@
 plugins {
     kotlin("multiplatform")
-    kotlin("plugin.serialization") version "1.9.23-dev-1"
     // alias(libs.plugins.composeGradle)
-    id("tmm-resource-generator")
+    id("com.tencent.kuiklybase.resource.generator")
     id("com.android.library")
     kotlin("native.cocoapods")
     id("com.google.devtools.ksp")
-    id("com.tencent.tmm.knoi.plugin")
+    id("com.tencent.kuiklybase.knoi.plugin")
 }
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -48,7 +47,6 @@ kotlin {
             dependencies {
                 api(project(":resource-compose"))
                 //api(project(":sample_noohos_sub"))
-                //api(libs.kotlin.stdlib.platform.ext)
                 //implementation("com.tencent.tmm:sample_noohos_sub:0.0.1-SNAPSHOT")
                 //implementation("com.tencent.tmm:resource-compose:0.0.6-SNAPSHOT")
             }

@@ -4,9 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("harmony-build")
-    id("easy-publish")
-    id("com.tencent.tmm.knoi.plugin")
+    id("com.tencent.kuiklybase.knoi.plugin")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -71,7 +69,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // put your multiplatform dependencies here
-                api(libs.kotlin.stdlib.platform.ext)
             }
         }
 
@@ -106,4 +103,7 @@ knoi {
     ignoreTypeAssert = true
     tsGenDir = projectDir.absolutePath + "/ts-api/"
 }
+
+
+apply(from = file(rootProject.file("gradle/publishing.gradle")))
 
