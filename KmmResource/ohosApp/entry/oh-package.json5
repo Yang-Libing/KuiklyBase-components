@@ -6,9 +6,9 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "knoi": "0.0.10",
+    "@kuiklybase/knoi": "0.0.1",
     //"package": "file:./libs/kmm_sample.har"
-    "resource_compose": "../resource_compose"
+    "@kuiklybase/resource_core": "../resource_core"
   }
 }
 

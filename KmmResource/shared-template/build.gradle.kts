@@ -1,12 +1,11 @@
 import org.jetbrains.kotlin.gradle.plugin.KotlinHierarchyTemplate
 
 plugins {
-    id("tmm-resource-generator")
+    id("com.tencent.kuiklybase.resource.generator")
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
-    id("harmony-build")
-    id("com.tencent.tmm.knoi.plugin")
+    id("com.tencent.kuiklybase.knoi.plugin")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)

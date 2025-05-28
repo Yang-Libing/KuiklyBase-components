@@ -46,8 +46,8 @@
       ]
     },
     {
-      "name": "resource_compose",
-      "srcPath": "./resource_compose"
+      "name": "resource_core",
+      "srcPath": "./resource_core"
     },
     {
       "name": "show",

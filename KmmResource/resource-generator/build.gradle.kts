@@ -22,7 +22,7 @@ dependencies {
 gradlePlugin {
     plugins {
         create("multiplatform-resources") {
-            id = "tmm-resource-generator"
+            id = "com.tencent.kuiklybase.resource.generator"
             implementationClass = "com.tencent.tmm.kmmgradle.MultiplatformResourcesPlugin"
 
             displayName = "MR resources generator plugin"
@@ -35,3 +35,5 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
+
+apply(from = file(rootProject.file("gradle/publishing.gradle")))

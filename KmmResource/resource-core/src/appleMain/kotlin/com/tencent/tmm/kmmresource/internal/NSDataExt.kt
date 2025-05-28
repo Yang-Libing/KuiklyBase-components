@@ -12,7 +12,7 @@ import platform.posix.memcpy
 
 
 @OptIn(ExperimentalForeignApi::class)
-internal fun NSData.toByteArray(): ByteArray {
+fun NSData.toByteArray(): ByteArray {
     return ByteArray(this@toByteArray.length.toInt()).apply {
         usePinned { pinned ->
             memcpy(pinned.addressOf(0), this@toByteArray.bytes, this@toByteArray.length)
