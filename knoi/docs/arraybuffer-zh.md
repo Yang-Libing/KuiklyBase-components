@@ -1,8 +1,9 @@
+
 ### ArrayBuffer
 
-ArrayBuffer is a wrapper for ArrayBuffer and TypedArray in JavaScript, allowing direct manipulation of binary data in the JS engine.
+ArrayBuffer 是对 JS 中 ArrayBuffer 和 TypedArray 的一种封装，可以直接操作 js 引擎中的二进制数据。
 
-##### ByteArray Construction and Access
+##### ByteArray 构造和获取
 
 ```kotlin
     val byteArray = ByteArray(8)
@@ -17,26 +18,26 @@ ArrayBuffer is a wrapper for ArrayBuffer and TypedArray in JavaScript, allowing 
     }
 ```
 
-##### Pointer Construction and Access
+##### 指针构造和获取
 
 ```kotlin
-    // Allocate int32 type buffer with length 8
+    // 申请 int32 类型的 buffer，长度为 8
     val int32Buffer = nativeHeap.allocArray<int32_tVar>(8)
     int32Buffer[0] = 17
     int32Buffer[1] = 18
     int32Buffer[2] = 19
     int32Buffer[3] = 20
-    // Create ArrayBuffer object - reinterpret required for non-uint8_tVar types, with napi_typedarray_type parameter
+    // 创建 ArrayBuffer 对象 如非 uint8_tVar 需调用reinterpret，并传入 napi_typedarray_type
     val arrayBufferInt32 = ArrayBuffer(int32Buffer.reinterpret(), 8, type = napi_typedarray_type.napi_int32_array)
-    // arrayBufferInt32 can now be passed between method calls and service calls
-    // Remember to release int32Buffer here
+    // arrayBufferInt32即可在方法调用和服务调用中互相传递
+    // 此处记得释放 int32Buffer
 ```
 
 ```kotlin
-     val arrayBuffer:ArrayBuffer = /** Passed from service call or method **/
-     // Need to know the buffer type from JS side (int8/int32 etc.)
-     // Get binary pointer
+     val arrayBuffer:ArrayBuffer = /**服务调用传入或者方法传入**/
+     // 需知道 JS 传入的 buffer类型，int8/int32等等
+     // 获取 二进制指针
      val ptr = arrayBuffer.getData<int32_tVar>()
-     // Convert to byteArray (not recommended as it involves data copy)
+     // 转换为 byteArray，不建议转换，存在一次数据拷贝
      val byteArray:ByteArray = ptr.readBytes(arrayBuffer.getCount())
 ```

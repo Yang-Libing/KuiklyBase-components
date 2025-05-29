@@ -1,10 +1,11 @@
-### Function Calling
+### 方法调用
 
-> For supported parameter and return value types and conversion rules, see the "Type Conversion" section
+> 参数与返回值 支持类型及转换规则见 “类型转换” 章节
 
-##### Kotlin Calling ArkTS
+##### Kotlin 调用 ArkTS
 
-- 1、Register JS Method (ArkTS)
+- 1、注册 JS 方法 （ArkTS）
+
 
 ```javascript
 import { bind } from "@kuiklybase/knoi"
@@ -14,23 +15,23 @@ bind("testStringReturnStringForKMM", (name: string) => {
       return name + "forArkTS"
 })
 
-// Remember to unbind when no longer in use to prevent memory leaks
+// 不再使用时记得取消绑定，防止内存泄露
 unBind("testStringReturnStringForKMM")
 ```
 
-- 2、KMM Calling ArkTS (Kotlin)
+- 2、KMM 调用 ArkTS （Kotlin）
 
 ```Kotlin
 val strResult = getJSFunction("testStringReturnStringForKMM")?.invoke<String>("KMM")
 ```
 
-##### ArkTS Calling KMM
+##### ArkTS 调用 KMM
 
-- 1、Register KMM Method (Kotlin)
+- 1、注册 KMM 方法 （Kotlin）
 
 ```Kotlin
 
-// Business logic
+// 业务代码
 @KNExport
 fun testStringFunction(name: String): String {
     return name + "forKMM"
@@ -38,7 +39,7 @@ fun testStringFunction(name: String): String {
 
 ```
 
-- 2、ArkTS Calling KMM (ArkTS)
+- 2、ArkTS 调用 KMM （ArkTS）
 
 ```javascript
 import { invoke } from "@kuiklybase/knoi"

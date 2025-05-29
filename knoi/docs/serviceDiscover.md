@@ -1,33 +1,33 @@
-## 服务发现
+## Service Discovery
 
-> 参数与返回值 支持类型及转换规则见 “类型转换” 章节
+> For supported parameter and return value types and conversion rules, see the "Type Conversion" section
 
-##### Kotlin 调用 Kotlin 服务
+##### Kotlin Calling Kotlin Services
 
-ServiceProvider 亦可暴露接口给 KMM 层，仅仅需绑定和实现接口即可
+ServiceProvider can also expose interfaces to KMM layer, just need to bind and implement the interface
 
-- 1. 声明 API 接口
+- 1. Declare API interface
 
 ```kotlin
-// 声明接口，并发布提供给依赖方实现
+// Declare interface and publish for implementation by dependents
 interface TestServiceBApi {
     fun methodWithIntReturnInt(a: Int): Int
 }
 
 ```
 
-- 2. 实现 API 并增加 ServiceProvider 注解，并绑定 API 接口
+- 2. Implement API with ServiceProvider annotation and bind API interface
 
-1. 接口只有一个实现时注册，可以使用ServiceProvider中的 bind 参数和 name 参数进行绑定
-2. 接口有多个实现时注册，可以使用ServiceProvider中的 name 参数进行绑定，此时不能指定多个 
-bind(多个 bind 同时指定一个接口启动会 crash 并抛出异常) 可以指定单个 bind
+1. When interface has single implementation, can use bind and name parameters in ServiceProvider for binding
+2. When interface has multiple implementations, can use name parameter in ServiceProvider for binding, cannot specify multiple
+   binds (specifying multiple binds for same interface will crash and throw exception), can specify single bind
 
 ```kotlin
-// 组件内部实现
+// Component internal implementation
 @ServiceProvider(bind = TestServiceBApi::class)
 open class TestServiceB : TestServiceBApi {
 
-    // 传入 Int 返回 Int
+    // Pass Int return Int
     override fun methodWithIntReturnInt(a: Int): Int {
         return a + 1
     }
@@ -36,23 +36,23 @@ open class TestServiceB : TestServiceBApi {
 @ServiceProvider()
 open class TestServiceC : TestServiceBApi {
 
-    // 传入 Int 返回 Int
+    // Pass Int return Int
     override fun methodWithIntReturnInt(a: Int): Int {
         return a + 1
     }
 }
 ```
 
-- 3. Kotlin 中调用 ServiceProvider
+- 3. Calling ServiceProvider in Kotlin
 
-1. 接口只有一个实现时注册，可以通过接口泛型或者 name 获取
-2. 接口有多个实现时注册，可以通过接口泛型或者 name 获取，有 name 优先通过 name 获取，接口泛型获取只能获取到 bind 声明的实现
+1. When interface has single implementation, can get via interface generic or name
+2. When interface has multiple implementations, can get via interface generic or name, name takes priority, interface generic can only get bind-declared implementation
 
 ```kotlin
-// KMM 同层调用
-KNOI.get<TestServiceBApi>().methodWithIntReturnInt(1) //此时获取到TestServiceB 实例
+// KMM same-layer calling
+KNOI.get<TestServiceBApi>().methodWithIntReturnInt(1) //Gets TestServiceB instance
 
-KNOI.get<TestServiceBApi>("TestServiceB").methodWithIntReturnInt(1) //此时获取到TestServiceB 实例
+KNOI.get<TestServiceBApi>("TestServiceB").methodWithIntReturnInt(1) //Gets TestServiceB instance
 
-KNOI.get<TestServiceBApi>("TestServiceC").methodWithIntReturnInt(1) //此时获取到TestServiceC 实例
+KNOI.get<TestServiceBApi>("TestServiceC").methodWithIntReturnInt(1) //Gets TestServiceC instance
 ```

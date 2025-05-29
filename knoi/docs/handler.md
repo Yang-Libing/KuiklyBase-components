@@ -1,41 +1,40 @@
 ### MainHandler
 
-提供往主线程执行任务的 API
+Provides APIs for executing tasks on the main thread
 
 ##### runOnMainThread(block: () -> Unit)
 
-在主线程执行任务
+Execute task on main thread
 
 ```kotlin
 runOnMainThread {
-    // 主线程执行代码
+    // Code to execute on main thread
 }
 ```
 
 ##### runOnMainThread(block: () -> Unit, delayMs: Long)
 
-delay 执行主线程任务，单位毫秒
+Execute task on main thread with delay (in milliseconds)
 
 ```kotlin
 runOnMainThread({
-    // 主线程延迟执行代码
+    // Code to execute on main thread with delay
 }, 1000)
 ```
 
 ##### cancelBlock(block: () -> Unit)
 
-取消 delay 的主线程任务
+Cancel delayed main thread task
 ```kotlin
 val block = {
-    // 主线程执行代码
+    // Code to execute on main thread
 }
-// 2000ms 后执行 block
+// Execute block after 2000ms
 runOnMainThread(block, 2000)
-// 取消 2000ms 的 block
+// Cancel the 2000ms delayed block
 cancelBlock(block)
 ```
 
 ##### isMainThread()
 
-是否主线程
-
+Check if current thread is main thread

@@ -1,36 +1,36 @@
 ### JSValue
 
-JSValue 对应的是 JS 的任何类型，提供一些api，可操作转换 JS 对象，***但*** 仅仅在 JS 线程能使用。
+JSValue corresponds to any JS type and provides APIs to manipulate and convert JS objects, ***but*** can only be used in JS threads.
 
-##### Kotlin 值转 JSValue
+##### Convert Kotlin Value to JSValue
 
-***注：支持转换的类型见“类型转换章节”***
+***Note: See "Type Conversion" section for supported types***
 ```kotlin
- // tid 不传默认为当前线程，如当前线程非JS 线程会崩溃
+ // tid defaults to current thread, will crash if current thread is not JS thread
  val param1 = JSValue.createJSValue("param1", tid = mainTid)!!
 ```
 
-##### Global 对象
+##### Global Object
 
-获取 JS Global 对象，可选参数 tid，如期望回到主线程传入 mainTid，默认为当前线程（当前线程非 JS 线程时会崩溃）
+Get JS Global object, optional tid parameter, pass mainTid to execute on main thread, defaults to current thread (will crash if current thread is not JS thread)
 
 ```kotlin
     val global = JSValue.global(tid = getTid())
 ```
 
-##### 创建 JS 对象
+##### Create JS Object
 
-创建一个 JS 对象，该对象如无其他引用，退栈后会被释放掉
+Create a JS object that will be released when out of scope if no other references exist
 
-可选参数 tid，如期望回到主线程传入 mainTid，默认为当前线程（当前线程非 JS 线程时会崩溃）
+Optional tid parameter, pass mainTid to execute on main thread, defaults to current thread (will crash if current thread is not JS thread)
 
 ```kotlin
     val jsObject = JSValue.createJSObject()
 ```
 
-##### 多回调接口
+##### Multiple Callback Interface
 
-为方便更方便使用多回调接口，可使用 KNCallback 注解，会辅助生成扩展方法
+For easier use of multiple callback interfaces, use KNCallback annotation which helps generate extension methods
 
 ```kotlin
 @KNCallback
@@ -41,42 +41,42 @@ interface MultiCallbackListener {
     fun onEnd(url: String, params: String)
 }
 
-val jsvalue:JSValue = /** 方法或服务获取的JSValue **/
+val jsvalue:JSValue = /** JSValue obtained from method or service **/
 val listener:MultiCallbackListener = value.asMultiCallbackListener()
 listener.onSuccess(200,"this is response.")
 ```
 
-##### 数组操作
+##### Array Operations
 
-如 JSValue 是数组类型，可使用 operator 直接进行数组操作
+If JSValue is an array type, you can use operator directly for array operations
 
 ```kotlin
-    val jsvalue:JSValue = /**js传入的类型**/
+    val jsvalue:JSValue = /**js**/
     val params1 = jsvalue[0]
     jsvalue[0] = JSValue.createJSObject()
 ```
 
-##### 对象操作
+##### Object Operations
 
-如 JSValue 是 Object 类型，可进行属性赋值和方法调用
+If JSValue is an Object type, you can perform property assignment and method calls
 
 ```kotlin
-   val jsvalue:JSValue = /**js传入的类型**/
-   // 属性读取和写入
+   val jsvalue:JSValue = /**js**/
+   // Property read/write
    val value = jsvalue["key"]
    jsvalue["key"] = JSValue.createJSObject()
    
-   //方法调用
-   // 调用 jsvalue 对象的 func 方法，参数为：1，2，3 
+   // Method call
+   // Call func method of jsvalue object with parameters: 1, 2, 3
    jsvalue.callMethod("func",1,2,3)
 ```
 
-##### 类型转换 & 类型判断
+##### Type Conversion & Type Checking
 
-toXXXX & isXXXX 系列方法提供了类型转换和类型判断便捷 API
+toXXXX & isXXXX methods provide convenient APIs for type conversion and checking
 
 ```kotlin
-    val jsvalue:JSValue = /**js传入**/
+    val jsvalue:JSValue = /**js**/
     if (jsvalue.isString()) {
         val str = jsvalue.toKString()
     }
@@ -85,18 +85,18 @@ toXXXX & isXXXX 系列方法提供了类型转换和类型判断便捷 API
     }
 ```
 
-##### 获取 napi_value
+##### Get napi_value
 
-可通过 JSValue#handle 获取到对应的 napi_value, 但需注意在 该 JS 对象所属线程中使用，如在其他线程使用该 api，Debug 包会主动抛异常
+You can get the corresponding napi_value through JSValue#handle, but must use it in the JS object's owning thread, Debug builds will throw exception if used in other threads
 
 ```kotlin
-    val jsvalue:JSValue = /**js传入**/
+    val jsvalue:JSValue = /**js**/
     val handle:napi_value? = jsvalue.handle
 ```
 
-##### 实践用例
+##### Practical Examples
 
-1. 获取 Global 下的 JSON，并调用 stringify
+1. Get JSON under Global and call stringify
 
 - Kotlin
 
@@ -106,5 +106,5 @@ val result = global["JSON"]?.callMethod("stringify", map)
 info("stringify result = ${result?.toKString()}")
 ```
 
-2. 多回调实例
+2. Multiple callback example
 

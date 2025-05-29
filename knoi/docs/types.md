@@ -1,23 +1,23 @@
-### 类型转换
+### Type Conversion
 
-***所有方法调用、服务调用均只支持下表中的类型***
+***All method calls and service calls only support the types listed below***
 
-由于 Kotlin Native 与 ArkTs 类型无法完全匹配，在跨 Runtime 调用时会有类型转换，转换规则如下：
+Since Kotlin Native and ArkTs types cannot be perfectly matched, type conversion occurs during cross-Runtime calls with the following rules:
 
 | **JavaScript**               | **Kotlin** |
 |------------------------------| ------------------------ |
 | Boolean                      | Boolean
-| Number                       | Double、Int、Long |
+| Number                       | Double, Int, Long |
 | String                       | String               |
-| Array                        | Array、List           |
+| Array                        | Array, List           |
 | Function                     | (args: Array<JSValue?>) -> Any? |
 | Object  <br> Map             | Map<String,Any?>|
 | ArrayBuffer, <br> TypedArray | ArrayBuffer  |
 | void                         | Unit  |
 | any                          | JSValue |
 
-***注1：Number 类型的转换在已知参数类型的场景下，会自动转成对应的 Int/Long/Double***
+***Note 1: Number type conversion will automatically convert to corresponding Int/Long/Double when parameter type is known***
 
-***注2：ArrayBuffer 可直接操作 napi 中的指针，但需注意⚠️不要进行释放***
+***Note 2: ArrayBuffer can directly manipulate napi pointers, but be careful⚠️ not to release them***
 
-***注3：Function 类型暂时不支持自动推断，只能以 Array<JSValue?> 接收入参***
+***Note 3: Function types currently don't support automatic inference, can only receive parameters as Array<JSValue?>***
