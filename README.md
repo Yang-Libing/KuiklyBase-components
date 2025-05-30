@@ -1,15 +1,17 @@
+English | [简体中文](./README-zh_CN.md)
+
 # KuiklyBase-component
 
-# 简介
-腾讯视频深度参与 Oteam 协同项目，共同推出 KuiklyBase 技术方案。其 Component 模块封装了常用的可复用跨端组件，目前包含资源管理、跨语言通信、网络请求、图片加载四个模块，帮助开发者降低多平台适配成本。未来将持续迭代扩展组件库。
+# Introduction
+Tencent Video is deeply involved in the Oteam collaboration project, jointly launching the KuiklyBase technical solution. Its Component module encapsulates commonly used reusable cross-platform components, currently including resource management, cross-language communication, network requests, and image loading modules. This helps developers reduce multi-platform adaptation costs. Future iterations will continuously expand the component library.
 
-# 功能概述
-| 组件名   | 简介   | 支持平台 | 开源时间  | 使用文档 | 
+# Feature Overview
+| Component | Description | Supported Platforms | Release Status | Documentation | 
 |-------|-------|-------|-------|-------|
-| knoi | 提供 Kotlin Native 与 ArkTS 的互相调用能力，无需编写 C/C++ 桥接代码 | HarmonyOS | 已开源 | [查看详情](knoi/README.md) |
-| KmmResource | 跨平台原生资源管理方案，为开发者带来类 Android R 的资源调用体验。 | Android / iOS / HarmonyOS | 已开源 | [查看详情](KmmResource/README.md) |
-| Network | 	提供跨平台的网络请求能力，无需关注平台差异。 | Android / iOS / HarmonyOS | 6月发布 | / |
-| Image | 基于 Compose 的图片展示能力，支持加载网络图片。 | Android / iOS / HarmonyOS | 9月发布 | / |
+| knoi | Provides mutual invocation capability between Kotlin Native and ArkTS without writing C/C++ bridging code | HarmonyOS | Open sourced | [Details](knoi/README.md) |
+| KmmResource | Cross-platform native resource management solution, offering developers an Android R-like resource access experience | Android / iOS / HarmonyOS | Open sourced | [Details](KmmResource/README.md) |
+| Network | Delivers cross-platform network request capabilities without requiring attention to platform differences | Android / iOS / HarmonyOS | June release | / |
+| Image | Image display capability based on Compose, supporting network image loading | Android / iOS / HarmonyOS | September release | / |
 
 # License
-KuiklyBase-component 基于 Apache 2.0 协议发布，详见：[License](License.txt)
+KuiklyBase-component is released under the Apache 2.0 License. For details, see: [License](License.txt)
