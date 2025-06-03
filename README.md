@@ -3,7 +3,7 @@ English | [简体中文](./README-zh_CN.md)
 # KuiklyBase-component
 
 # Introduction
-Tencent Video is deeply involved in the Oteam collaboration project, jointly launching the KuiklyBase technical solution. Its Component module encapsulates commonly used reusable cross-platform components, currently including resource management, cross-language communication, network requests, and image loading modules. This helps developers reduce multi-platform adaptation costs. Future iterations will continuously expand the component library.
+KuiklyBase is developed and open - sourced by the Oteam of Tencent's large front - end. Tencent Video and the PCG Device-side technology team were deeply involved in its construction. Its `Component` module encapsulates commonly used reusable cross-platform components, currently including resource management, cross-language communication, network requests, and image loading modules. This helps developers reduce multi-platform adaptation costs. Future iterations will continuously expand the component library.
 
 # Feature Overview
 | Component | Description | Supported Platforms | Release Status | Documentation | 
